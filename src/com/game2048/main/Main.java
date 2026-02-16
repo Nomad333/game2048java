@@ -1,6 +1,7 @@
 package com.game2048.main;
 
-import com.game2048.cell.ConsoleCell;
+import com.game2048.cell.IntCell;
+import com.game2048.cell.TextCell;
 import com.game2048.color.ConsoleColor;
 import com.game2048.color.StringWrapper;
 
@@ -8,16 +9,13 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<ConsoleCell> cells = List.of(
-                new ConsoleCell(5),
-                new ConsoleCell(5),
-                new ConsoleCell(5),
-                new ConsoleCell(5)
+        List<TextCell> cells = List.of(
+                new TextCell("Text"),
+                new TextCell("TEXT"),
+                new TextCell("TEST"),
+                new TextCell("COUNT:5"),
+                new IntCell(5)
         );
-
-        cells.get(0).setNumWidth(50);
-        cells.get(0).setNumber(1000000, false);
-        cells.get(1).setNumWidth(12);
 
         for (int i = 0; i < 3; i++) {
             for (var el : cells) {
