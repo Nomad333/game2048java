@@ -1,7 +1,5 @@
-package com.game2048.cell;
+package com.game2048.consoleobj;
 
-
-import com.game2048.consoleobj.ConsoleObject;
 
 import java.security.InvalidParameterException;
 

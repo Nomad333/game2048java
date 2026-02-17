@@ -1,9 +1,11 @@
-package com.game2048.cell;
+package com.game2048.consoleobj;
 
 
 //┏━━━┓
 //┃ x ┃
 //┗━━━┛
+
+// Decorator
 
 public class IntCell extends TextCell {
     private int number;
