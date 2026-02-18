@@ -49,11 +49,6 @@ public class GridPrinter<T extends ConsoleObject> implements Printer {
             for (int i = 0; i < 3; i++) {
                 for (int j = startIdx; j < endIdx; j++) {
                     // Берем j-й объект и печатаем его i-ю строчку
-                    try {
-                        Thread.sleep(20);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
                     System.out.print(StringWrapper.str(objects.get(j).next(), consoleColor));
                 }
                 // Переход на новую строку консоли после того, как отрисовали i-й срез всех объектов в ряду
