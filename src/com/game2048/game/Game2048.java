@@ -5,6 +5,7 @@ import com.game2048.consoleobj.IntCell;
 import com.game2048.consoleobj.TextCell;
 import com.game2048.printer.GridPrinter;
 import com.game2048.printer.Printer;
+import com.game2048.printer.RainbowGridPrinter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class Game2048 implements Game {
         textCells.add(new TextCell("Current Score: " + currentScore));
 
         textPrinter = new GridPrinter<>(textCells, ConsoleColor.BLUE);
-        gridPrinter = new GridPrinter<>(intCells);
+        gridPrinter = new RainbowGridPrinter(intCells);
     }
 
     private void autoWidth() {
@@ -132,7 +133,7 @@ public class Game2048 implements Game {
         textCells.add(new TextCell("Current Score: " + currentScore));
 
         textPrinter = new GridPrinter<>(textCells, ConsoleColor.BLUE);
-        gridPrinter = new GridPrinter<>(intCells);
+        gridPrinter = new RainbowGridPrinter(intCells);
     }
 
     private List<IntCell> getRow(int r) {

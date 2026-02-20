@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GridPrinter<T extends ConsoleObject> implements Printer {
-    private List<? extends T> objects = new ArrayList<>();
-    private int rows;
-    private int cols;
+    protected List<? extends T> objects = new ArrayList<>();
+    protected int rows;
+    protected int cols;
     private ConsoleColor consoleColor;
 
     public GridPrinter(List<? extends T> objects) {

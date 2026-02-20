@@ -8,8 +8,8 @@ import java.security.InvalidParameterException;
 //┗━━━┛
 
 public class TextCell extends ConsoleObject {
-    private String text;
-    private int textWidth;
+    protected String text;
+    protected int textWidth;
 
     public TextCell(String text) {
         super();
@@ -43,7 +43,7 @@ public class TextCell extends ConsoleObject {
         return text;
     }
 
-    private void reDraw() {
+    protected void reDraw() {
         header = "┏━━" + "━".repeat(textWidth) + "┓";
         body = "┃ %s ".formatted(text) + " ".repeat(textWidth - text.length()) + "┃";
         footer = "┗━━" + "━".repeat(textWidth) + "┛";

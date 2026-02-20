@@ -17,12 +17,12 @@ public enum ConsoleColor {
     // Жирный текст
     BLACK_BOLD("\033[1;30m"),
     RED_BOLD("\033[1;31m"),
-    GREEN_BOLD("\033[1;32m"),
+    GREEN_BOLD("\033[1;32m");
 
     // Фон
-    RED_BACKGROUND("\033[41m"),
-    GREEN_BACKGROUND("\033[42m"),
-    BLUE_BACKGROUND("\033[44m");
+//    RED_BACKGROUND("\033[41m"),
+//    GREEN_BACKGROUND("\033[42m"),
+//    BLUE_BACKGROUND("\033[44m");
 
     private final String code;
 

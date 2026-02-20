@@ -8,7 +8,7 @@ package com.game2048.consoleobj;
 // Decorator
 
 public class IntCell extends TextCell {
-    private int number;
+    protected int number;
 
     public IntCell(int number) {
         super(number + "");
