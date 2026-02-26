@@ -8,6 +8,7 @@ import com.game2048.printer.Printer;
 import com.game2048.printer.RainbowGridPrinter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Game2048 implements Game {
@@ -69,10 +70,8 @@ public class Game2048 implements Game {
 
     @Override
     public void moveUp() {
-        for (int j = 0; j < rows; j++) {
-            for (int i = 0; i < rows - 1; i++) {
-                leftMerge(getRow(i), getRow(i + 1));
-            }
+        for (int i = 0; i < cols; i++) {
+            merge(getColumn(i), false);
         }
 
         if (isMergedFlag) randomSpawn();
@@ -81,10 +80,8 @@ public class Game2048 implements Game {
 
     @Override
     public void moveDown() {
-        for (int j = 0; j < rows; j++) {
-            for (int i = rows - 1; i > 0; i--) {
-                leftMerge(getRow(i), getRow(i - 1));
-            }
+        for (int i = 0; i < cols; i++) {
+            merge(getColumn(i), true);
         }
 
         if (isMergedFlag) randomSpawn();
@@ -93,10 +90,8 @@ public class Game2048 implements Game {
 
     @Override
     public void moveLeft() {
-        for (int j = 0; j < cols; j++) {
-            for (int i = 0; i < cols - 1; i++) {
-                leftMerge(getColumn(i), getColumn(i + 1));
-            }
+        for (int i = 0; i < rows; i++) {
+            merge(getRow(i), false);
         }
 
         if (isMergedFlag) randomSpawn();
@@ -105,10 +100,8 @@ public class Game2048 implements Game {
 
     @Override
     public void moveRight() {
-        for (int j = 0; j < cols; j++) {
-            for (int i = cols - 1; i > 0; i--) {
-                leftMerge(getColumn(i), getColumn(i - 1));
-            }
+        for (int i = 0; i < rows; i++) {
+            merge(getRow(i), true);
         }
 
         if (isMergedFlag) randomSpawn();
@@ -152,18 +145,63 @@ public class Game2048 implements Game {
         return column;
     }
 
-    private void leftMerge(List<IntCell> left, List<IntCell> right) {
-        for (int i = 0; i < left.size(); i++) {
-            var leftEl = left.get(i);
-            var rightEl = right.get(i);
-            if (leftEl.getNumber() == rightEl.getNumber()) {
-                leftEl.setNumber(leftEl.getNumber() * 2, true);
-                rightEl.setNumber(0, true);
+//    private void leftMerge(List<IntCell> left, List<IntCell> right) {
+//        for (int i = 0; i < left.size(); i++) {
+//            var leftEl = left.get(i);
+//            var rightEl = right.get(i);
+//            if (leftEl.getNumber() == rightEl.getNumber()) {
+//                leftEl.setNumber(leftEl.getNumber() * 2, true);
+//                rightEl.setNumber(0, true);
+//                isMergedFlag = true;
+//            } else if (leftEl.getNumber() == 0 && rightEl.getNumber() != 0) {
+//                leftEl.setNumber(rightEl.getNumber(), true);
+//                rightEl.setNumber(0, true);
+//                isMergedFlag = true;
+//            }
+//        }
+//    }
+
+    private void merge(List<IntCell> cells, boolean reverse) {
+        if (reverse) {
+            Collections.reverse(cells);
+        }
+
+        // 1. Сдвиг нулей
+        compress(cells);
+
+        // 2. Слияние
+        for (int i = 0; i < cells.size() - 1; i++) {
+            if (cells.get(i).getNumber() != 0 &&
+                    cells.get(i).getNumber() == cells.get(i + 1).getNumber()) {
+
+                cells.get(i).setNumber(cells.get(i).getNumber() * 2, true);
+                cells.get(i + 1).setNumber(0, true);
                 isMergedFlag = true;
-            } else if (leftEl.getNumber() == 0 && rightEl.getNumber() != 0) {
-                leftEl.setNumber(rightEl.getNumber(), true);
-                rightEl.setNumber(0, true);
-                isMergedFlag = true;
+                i++; // пропускаем следующую клетку (чтобы не было двойного merge)
+            }
+        }
+
+        // 3. Повторный сдвиг
+        compress(cells);
+
+        if (reverse) {
+            Collections.reverse(cells);
+        }
+    }
+
+    private void compress(List<IntCell> cells) {
+        int insertPos = 0;
+
+        for (int i = 0; i < cells.size(); i++) {
+            if (cells.get(i).getNumber() != 0) {
+
+                if (i != insertPos) {
+                    cells.get(insertPos).setNumber(cells.get(i).getNumber(), true);
+                    cells.get(i).setNumber(0, true);
+                    isMergedFlag = true;
+                }
+
+                insertPos++;
             }
         }
     }
@@ -176,7 +214,6 @@ public class Game2048 implements Game {
         int value = (Math.random() < 0.9) ? 2 : 4;
         emptyCells.get(randomIndex).setNumber(value, true);
     }
-
 
     @Override
     public boolean isGameEnded() {
