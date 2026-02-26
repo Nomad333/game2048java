@@ -4,9 +4,12 @@ import com.game2048.color.ConsoleColor;
 import com.game2048.color.StringWrapper;
 import com.game2048.consoleobj.IntCell;
 
-import java.util.List;
+import java.util.*;
 
 public class RainbowGridPrinter extends GridPrinter<IntCell> {
+    private final Deque<ConsoleColor> pool = new ArrayDeque<>(List.of(ConsoleColor.values()));
+    private final Map<Integer, ConsoleColor> colorMap = new HashMap<>();
+
     public RainbowGridPrinter(List<? extends IntCell> objects) {
         super(objects);
     }
@@ -29,13 +32,21 @@ public class RainbowGridPrinter extends GridPrinter<IntCell> {
             // i — это "построчная" отрисовка внутренностей объекта (высота 3 строки)
             for (int i = 0; i < 3; i++) {
                 for (int j = startIdx; j < endIdx; j++) {
-                    // Берем j-й объект и печатаем его i-ю строчку
+                    // Берем j-й объект и печатаем его i-юobjects.get(j).getNumber() строчку
                     var maxColorIndex = ConsoleColor.values().length;
-                    var hashNumber = ((Integer) objects.get(j).getNumber()).hashCode();
+                    ConsoleColor color;
+                    var cell = objects.get(j);
+
+                    if (colorMap.containsKey(objects.get(j).getNumber())) {
+                        color = colorMap.get(cell.getNumber());
+                    } else {
+                        color = pool.poll();
+                        color = color != null ? color : ConsoleColor.WHITE;
+                        colorMap.put(cell.getNumber(), color);
+                    }
 
                     System.out.print(
-                            StringWrapper.str(objects.get(j).next(),
-                                    ConsoleColor.values()[hashNumber % maxColorIndex])
+                            StringWrapper.str(objects.get(j).next(), color)
                     );
                 }
                 // Переход на новую строку консоли после того, как отрисовали i-й срез всех объектов в ряду

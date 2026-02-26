@@ -5,7 +5,6 @@ public enum ConsoleColor {
     RESET("\033[0m"),
 
     // Обычные цвета
-    BLACK("\033[0;30m"),
     RED("\033[0;31m"),
     GREEN("\033[0;32m"),
     YELLOW("\033[0;33m"),
@@ -13,6 +12,7 @@ public enum ConsoleColor {
     PURPLE("\033[0;35m"),
     CYAN("\033[0;36m"),
     WHITE("\033[0;37m"),
+    BLACK("\033[0;30m"),
 
     // Жирный текст
     BLACK_BOLD("\033[1;30m"),
