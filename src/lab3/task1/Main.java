@@ -1,5 +1,8 @@
 package lab3.task1;
 
+import java.util.List;
+import java.util.function.Predicate;
+
 public class Main {
     /*
         Завдання 1. Описати клас для зберігання даних про тип об’єктів у
@@ -25,6 +28,9 @@ public class Main {
     Реалізувати пошук товарів за вказаною категорією.
      */
     public static void main(String[] args) {
+    }
 
+    public static List<Product> selectAll(List<Product> productList, Predicate<Product> pred) {
+        return productList.stream().filter(pred).toList();
     }
 }
