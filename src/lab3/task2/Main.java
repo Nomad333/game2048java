@@ -46,7 +46,6 @@ public class Main {
                         .flatMap(m -> Arrays.stream(m.getArticles()))
                         .max(Comparator.comparingInt(Article::getRating))
                         .orElse(null);
-
 //        Article maxArticle = null;
 //        for (Magazine m : magazines) {
 //            for (Article a : m.getArticles()) {

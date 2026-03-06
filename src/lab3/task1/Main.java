@@ -46,12 +46,12 @@ public class Main {
         }
         System.out.println("___вивід даних лише тих елементів, які відповідають заданому у варіанті" +
                 "    завдання критерію___");
-        System.out.println(selectAll(products, Product::isAvailable));
+        System.out.println(filter(products, Product::isAvailable));
         System.out.println("___пошук в масиві та вивід на консоль об’єктів з вказаною властивістю.___");
-        System.out.println(selectAll(products, pr -> pr.getCategory() == ProductCategory.HOME));
+        System.out.println(filter(products, pr -> pr.getCategory() == ProductCategory.HOME));
     }
 
-    public static List<Product> selectAll(List<Product> productList, Predicate<Product> pred) {
+    public static List<Product> filter(List<Product> productList, Predicate<Product> pred) {
         return productList.stream().filter(pred).toList();
     }
 }
