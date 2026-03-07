@@ -39,7 +39,7 @@ public class Main {
 
         Bank bank = new Bank(atmCount, new DefaultBanknoteBuilder(symbol), nominals, banknotesPerATM);
         System.out.println(bank);
-        System.out.println(bank.getAtms().get(0).withdraw(1200));
+        System.out.println(bank.getAtms().get(0).withdraw(1000));
         System.out.println(bank.getAtms().get(0));
     }
 }

@@ -1,6 +1,6 @@
 package lab1.task1;
 
-public class Plane implements Consumable {
+public class Plane {
     private int tankValue;
     private final int storageValue;
 
@@ -9,7 +9,6 @@ public class Plane implements Consumable {
         this.storageValue = storageValue;
     }
 
-    @Override
     public int getConsumption() {
         return switch ((Integer) storageValue) {
             case Integer val when val < 500 -> 1;
