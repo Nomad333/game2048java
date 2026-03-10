@@ -51,8 +51,9 @@ public class Cafe {
         }
     }
 
+
     public void addReservation(Visitor visitor, LocalDate expDate) {
-        var table = pool.acquire();
+        var table = pool.acquire();  // TODO: ISSUE
         if (table == null) {
             System.out.println("No tables available for reservation");
             return;
