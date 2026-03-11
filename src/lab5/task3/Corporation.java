@@ -12,7 +12,7 @@ import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Corporation implements Loader<List<Worker>>, WorkerManager {
+public class Corporation implements Loader<List<Worker>>, WorkersManager {
     private List<Worker> workers = new ArrayList<>();
 
     public Corporation() {
@@ -96,6 +96,4 @@ public class Corporation implements Loader<List<Worker>>, WorkerManager {
     public void setWorkers(List<Worker> workers) {
         this.workers = workers;
     }
-
-
 }
