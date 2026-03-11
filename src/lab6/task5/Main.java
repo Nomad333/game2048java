@@ -31,8 +31,9 @@ public class Main {
      */
     public static void main(String[] args) {
         var builder = new ListBuildingsBuilder();
-        var buildings = builder.addBuildings(School.class, 3)
-                .addBuildings(House.class, 5)
+        var buildings = builder
+                .addBuildings(School.class, 3)
+                .addBuildings(House.class, 15)
                 .addBuildings(Store.class, 2)
                 .addBuildings(Hospital.class, 1)
                 .build();

@@ -3,37 +3,37 @@ package lab6.task5.buildings;
 import java.util.Objects;
 
 public abstract class AbstractBuilding implements Building {
-    protected String address = "";
-    protected String city = "";
+    protected String street = "";
+    protected String numberHouse = "";
     protected String owner = "";
 
     public AbstractBuilding() {
     }
 
-    public AbstractBuilding(String address, String city, String owner) {
-        this.address = address;
-        this.city = city;
+    public AbstractBuilding(String street, String numberHouse, String owner) {
+        this.street = street;
+        this.numberHouse = numberHouse;
         this.owner = owner;
     }
 
     @Override
-    public String getAddress() {
-        return address;
+    public String getStreet() {
+        return street;
     }
 
     @Override
-    public void setAddress(String address) {
-        this.address = address;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     @Override
-    public String getCity() {
-        return city;
+    public String getNumberHouse() {
+        return numberHouse;
     }
 
     @Override
-    public void setCity(String city) {
-        this.city = city;
+    public void setNumberHouse(String numberHouse) {
+        this.numberHouse = numberHouse;
     }
 
     @Override
@@ -49,19 +49,19 @@ public abstract class AbstractBuilding implements Building {
     @Override
     public String toString() {
         return "Building:" + "\n" +
-                " -address: " + address + "\n" +
-                " -city: " + city + "\n" +
+                " -street: " + street + "\n" +
+                " -number house: " + numberHouse + "\n" +
                 " -owner: " + owner + "\n";
     }
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof AbstractBuilding that)) return false;
-        return Objects.equals(address, that.address) && Objects.equals(city, that.city) && Objects.equals(owner, that.owner);
+        return Objects.equals(street, that.street) && Objects.equals(numberHouse, that.numberHouse) && Objects.equals(owner, that.owner);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(address, city, owner);
+        return Objects.hash(street, numberHouse, owner);
     }
 }

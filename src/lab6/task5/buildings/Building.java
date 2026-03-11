@@ -1,13 +1,13 @@
 package lab6.task5.buildings;
 
 public interface Building {
-    String getAddress();
+    String getStreet();
 
-    void setAddress(String address);
+    void setStreet(String street);
 
-    String getCity();
+    String getNumberHouse();
 
-    void setCity(String city);
+    void setNumberHouse(String numberHouse);
 
     String getOwner();
 

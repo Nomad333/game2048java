@@ -16,26 +16,6 @@ public class ListBuildingsBuilder implements Builder<List<Building>> {
         return buildings;
     }
 
-    public ListBuildingsBuilder addBuildings(Class<? extends Building> buildingClass) {
-        switch (buildingClass.getSimpleName()) {
-            case "School":
-                buildings.add(new School.SchoolFactory().create());
-                break;
-            case "House":
-                buildings.add(new House.HouseFactory().create());
-                break;
-            case "Store":
-                buildings.add(new Store.StoreFactory().create());
-                break;
-            case "Hospital":
-                buildings.add(new Hospital.HospitalFactory().create());
-                break;
-            default:
-                throw new IllegalArgumentException("Unsupported building class: " + buildingClass.getSimpleName());
-        }
-        return this;
-    }
-
     public ListBuildingsBuilder addBuildings(Class<? extends Building> buildingClass, int count) {
         for (int i = 0; i < count; i++) {
             switch (buildingClass.getSimpleName()) {

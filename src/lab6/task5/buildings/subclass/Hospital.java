@@ -11,12 +11,12 @@ public class Hospital extends AbstractBuilding {
     public Hospital() {
     }
 
-    public Hospital(String address, String city, String owner) {
-        super(address, city, owner);
+    public Hospital(String street, String numberHouse, String owner) {
+        super(street, numberHouse, owner);
     }
 
-    public Hospital(String address, String city, String owner, int numberOfDoctors) {
-        super(address, city, owner);
+    public Hospital(String street, String numberHouse, String owner, int numberOfDoctors) {
+        super(street, numberHouse, owner);
         this.numberOfDoctors = numberOfDoctors;
     }
 
@@ -39,13 +39,13 @@ public class Hospital extends AbstractBuilding {
             super();
         }
 
-        public HospitalFactory(String[] addresses, String[] cities, String[] owners) {
-            super(addresses, cities, owners);
+        public HospitalFactory(String[] addresses, String[] cities, String[] owners, String[] streetNames, String[] houseNumbers) {
+            super(addresses, cities, owners, streetNames, houseNumbers);
         }
 
         @Override
         public Hospital create() {
-            return new Hospital(getRandomAddress(), getRandomCity(), getRandomOwner(),
+            return new Hospital(getRandomStreetName(), getRandomHouseNumber(), getRandomOwner(),
                     ThreadLocalRandom.current().nextInt(10, 50));
         }
     }

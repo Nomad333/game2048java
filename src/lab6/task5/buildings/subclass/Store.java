@@ -11,12 +11,12 @@ public class Store extends AbstractBuilding {
     public Store() {
     }
 
-    public Store(String address, String city, String owner) {
-        super(address, city, owner);
+    public Store(String street, String numberHouse, String owner) {
+        super(street, numberHouse, owner);
     }
 
-    public Store(String address, String city, String owner, int departments) {
-        super(address, city, owner);
+    public Store(String street, String numberHouse, String owner, int departments) {
+        super(street, numberHouse, owner);
         this.departments = departments;
     }
 
@@ -39,13 +39,13 @@ public class Store extends AbstractBuilding {
             super();
         }
 
-        public StoreFactory(String[] addresses, String[] cities, String[] owners) {
-            super(addresses, cities, owners);
+        public StoreFactory(String[] addresses, String[] cities, String[] owners, String[] streetNames, String[] houseNumbers) {
+            super(addresses, cities, owners, streetNames, houseNumbers);
         }
 
         @Override
         public Store create() {
-            return new Store(getRandomAddress(), getRandomCity(), getRandomOwner(),
+            return new Store(getRandomStreetName(), getRandomHouseNumber(), getRandomOwner(),
                     ThreadLocalRandom.current().nextInt(1, 10));
         }
     }

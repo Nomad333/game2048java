@@ -12,15 +12,16 @@ public class School extends AbstractBuilding {
     public School() {
     }
 
-    public School(String address, String city, String owner) {
-        super(address, city, owner);
+    public School(String street, String numberHouse, String owner) {
+        super(street, numberHouse, owner);
     }
 
-    public School(String address, String city, String owner, int kStudents, int accreditationLevel) {
-        super(address, city, owner);
+    public School(String street, String numberHouse, String owner, int kStudents, int accreditationLevel) {
+        super(street, numberHouse, owner);
         this.accreditationLevel = accreditationLevel;
         setNumberOfStudents(kStudents);
     }
+
 
     public int getNumberOfStudents() {
         return numberOfStudents;
@@ -52,13 +53,13 @@ public class School extends AbstractBuilding {
             super();
         }
 
-        public SchoolFactory(String[] addresses, String[] cities, String[] owners) {
-            super(addresses, cities, owners);
+        public SchoolFactory(String[] addresses, String[] cities, String[] owners, String[] streetNames, String[] houseNumbers) {
+            super(addresses, cities, owners, streetNames, houseNumbers);
         }
 
         @Override
         public School create() {
-            return new School(getRandomAddress(), getRandomCity(), getRandomOwner(),
+            return new School(getRandomStreetName(), getRandomHouseNumber(), getRandomOwner(),
                     ThreadLocalRandom.current().nextInt(100, 500),
                     ThreadLocalRandom.current().nextInt(1, 5));
         }

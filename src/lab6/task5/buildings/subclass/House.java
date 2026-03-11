@@ -11,12 +11,12 @@ public class House extends AbstractBuilding {
     public House() {
     }
 
-    public House(String address, String city, String owner) {
-        super(address, city, owner);
+    public House(String street, String numberHouse, String owner) {
+        super(street, numberHouse, owner);
     }
 
-    public House(String address, String city, String owner, int residents) {
-        super(address, city, owner);
+    public House(String street, String numberHouse, String owner, int residents) {
+        super(street, numberHouse, owner);
         this.residents = residents;
     }
 
@@ -39,13 +39,13 @@ public class House extends AbstractBuilding {
             super();
         }
 
-        public HouseFactory(String[] addresses, String[] cities, String[] owners) {
-            super(addresses, cities, owners);
+        public HouseFactory(String[] addresses, String[] cities, String[] owners, String[] streetNames, String[] houseNumbers) {
+            super(addresses, cities, owners, streetNames, houseNumbers);
         }
 
         @Override
         public House create() {
-            return new House(getRandomAddress(), getRandomCity(), getRandomOwner(),
+            return new House(getRandomStreetName(), getRandomHouseNumber(), getRandomOwner(),
                     ThreadLocalRandom.current().nextInt(1, 10));
         }
     }
