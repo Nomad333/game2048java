@@ -4,10 +4,14 @@ import lombok.NonNull;
 import task2.driver.Driver;
 import task2.vehicle.Vehicle;
 
+import java.time.LocalDate;
+
 @Data
 public class Trip {
-    private Vehicle vehicle;
-    private Driver driver;
+    private Vehicle vehicle = null;
+    private Driver driver = null;
+    private LocalDate startDate = LocalDate.now();
+    private LocalDate endDate = null;
     @NonNull
     Double distance;
     @NonNull

@@ -1,5 +1,7 @@
 package task2;
 
+import java.util.ArrayList;
+
 public class Main {
     /*
     Завдання 2. Використовуючи фреймворки Lombok та JUnit5 виконайте наступне завдання:
