@@ -1,37 +1,49 @@
 package task2;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 import task2.driver.Driver;
 import task2.trip.Trip;
 import task2.vehicle.Vehicle;
 import task2.vehicle.VehicleStatus;
 
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.*;
 
+@Builder
 @Getter
 @ToString
 @EqualsAndHashCode
+@NoArgsConstructor
 public class DispatcherService {
+    @Builder.Default
     private Queue<Trip> pendingTrips = new ArrayDeque<>();
+    @Builder.Default
     private List<Vehicle> vehicles = new ArrayList<>();
+    @Builder.Default
     private List<Driver> drivers = new ArrayList<>();
+    @Builder.Default
     private Set<Trip> tripsInProgress = new HashSet<>();
     private final List<Trip> completedTrips = new ArrayList<>();
+    @Builder.Default
+    private StreamLogger<Trip> tripLogger = new StreamLogger<>(Path.of("trips.log"));
 
-    public DispatcherService() {
-    }
-
-    @Builder
     public DispatcherService(Queue<Trip> pendingTrips, List<Vehicle> vehicles,
-                             List<Driver> drivers, Set<Trip> tripsInProgress) {
+                             List<Driver> drivers, Set<Trip> tripsInProgress,
+                             StreamLogger<Trip> tripLogger) {
         this.pendingTrips = pendingTrips;
         this.vehicles = vehicles;
         this.drivers = drivers;
         this.tripsInProgress = tripsInProgress;
+        this.tripLogger = tripLogger;
+    }
+
+    public void logTrip(Trip trip) {
+        tripLogger.append(trip);
+    }
+
+    public void clearLog() {
+        tripLogger.clear();
     }
 
     public void removeVehicle(Vehicle vehicle) {
@@ -106,7 +118,6 @@ public class DispatcherService {
 
         removeVehicle(vehicle.get());
         removeDriver(driver.get());
-        removePendingTrip(trip);
         tripsInProgress.add(trip);
         return true;
     }
@@ -130,11 +141,25 @@ public class DispatcherService {
     public boolean completeTrip(Trip trip) {
         if (tripsInProgress.remove(trip)) {
             trip.setEndDate(LocalDate.now());
+            vehicles.add(trip.getVehicle());
+            drivers.add(trip.getDriver());
             completedTrips.add(trip);
+            logTrip(trip);
             return true;
         } else {
             System.err.println("Trip not found in progress");
             return false;
         }
+    }
+
+    public void printStatistics() {
+        System.out.println("Completed trips: " + completedTrips.size());
+        System.out.println("Completed trips by driver:");
+        completedTrips.stream()
+                .map(Trip::getDriver)
+                .distinct()
+                .forEach(driver -> System.out.println(driver + ": " + completedTrips.stream()
+                        .filter(t -> t.getDriver().equals(driver))
+                        .count()));
     }
 }

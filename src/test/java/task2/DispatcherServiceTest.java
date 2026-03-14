@@ -33,6 +33,7 @@ class DispatcherServiceTest {
         dispatcher.addVehicle(vehicle);
         dispatcher.addDriver(driver);
         dispatcher.addTrip(trip);
+
     }
 
     @Test

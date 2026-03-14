@@ -1,6 +1,18 @@
 package task2;
 
+import com.github.javafaker.Faker;
+import task2.driver.Driver;
+import task2.trip.Address;
+import task2.trip.Trip;
+import task2.vehicle.DefaultVehicle;
+import task2.vehicle.Vehicle;
+import task2.vehicle.VehicleStatus;
+
+import java.nio.file.Path;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 
 public class Main {
     /*
@@ -24,6 +36,38 @@ public class Main {
      даних за допомогою тестів фреймворку JUnit5.
      */
     public static void main(String[] args) {
+        Faker faker = new Faker();
 
+        List<Vehicle> vehicles = new ArrayList<>();
+        List<Driver> drivers = new ArrayList<>();
+        Queue<Trip> trips = new ArrayDeque<>();
+
+        for (int i = 0; i < 10; i++) {
+            vehicles.add(new DefaultVehicle(faker.funnyName().name(), faker.number().numberBetween(100, 1000), VehicleStatus.OK));
+            drivers.add(new Driver(faker.name().firstName(), faker.name().lastName(), faker.phoneNumber().phoneNumber(), faker.number().numberBetween(1, 20)));
+            trips.add(new Trip(faker.number().randomDouble(2, 100, 1000), new Address(faker.address().fullAddress()), faker.number().numberBetween(1, 100)));
+        }
+
+        var dispatcher = DispatcherService.builder()
+                .drivers(drivers)
+                .vehicles(vehicles)
+                .pendingTrips(trips)
+                .build();
+
+        doSomething(dispatcher);
+    }
+
+    public static void doSomething(DispatcherService dispatcherService) {
+        while (dispatcherService.assignNextTrip()) {
+
+        }
+        dispatcherService.getTripsInProgress().forEach(System.out::println);
+        dispatcherService.printStatistics();
+
+        var tripsInProgress = dispatcherService.getTripsInProgress();
+        for (Trip trip : new ArrayList<>(tripsInProgress)) {
+            dispatcherService.completeTrip(trip);
+        }
+        dispatcherService.printStatistics();
     }
 }
